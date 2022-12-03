@@ -21,34 +21,17 @@ class BlocksController < ApplicationController
   def create
     @block = Block.new(block_params)
 
-    respond_to do |format|
-      if @block.save
-        format.html { redirect_back fallback_location: '/' }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
-    end
+    @block.save
   end
 
   # PATCH/PUT /blocks/1
   def update
-    respond_to do |format|
-      if @block.update(block_params)
-        format.html { redirect_back fallback_location: '/' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
-    end
+    @block.update(block_params)
   end
 
   # DELETE /blocks/1 or /blocks/1.json
   def destroy
     @block.destroy
-
-    respond_to do |format|
-      format.html { redirect_to blocks_url, notice: 'Block was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private

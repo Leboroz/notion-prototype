@@ -1,30 +1,29 @@
-<%= turbo_frame_tag dom_id(block), data: {controller: 'block'} do %>
-  <%= form_with(model: block, class: "contents", ) do |form| %>
+<%= turbo_frame_tag dom_id(block), data: {controller: 'block'}, class: 'relative' do %>
+  <%= form_with(model: block, class: "contents" ) do |form| %>
     <div 
       id="<%= dom_id block %>"
-      class="<%= block.type_of_block %> block"
+      class="<%= block.type_of_block.sub(/ /, '-') %> block w-full p-4 outline-none focus:bg-gray-100"
       contenteditable
       placeholder="<%= block_object(block.type_of_block)[:placeholder] %>"
-      data-action="keydown->block#press input->block#changed"
+      data-action="keydown->block#press input->block#changed load->block#loadBlock keyup->block#input"
       data-block-target="content"
-    >
-      <%= block.text %>
-    </div>
+    ><%= block.text if block.text.length > 0 %></div>
     <%= form.hidden_field :text, data: {block_target: 'input'} %>
+    <%= form.hidden_field :type_of_block, data: {block_target: 'type'} %>
   <% end %>
     <div 
       data-show="false"
       data-block-target="dropdown"
-      class="flex flex-col w-min border p-1"
+      class="flex flex-col border p-1 absolute z-10 top-100 left-0 bg-white rounded shadow"
     >
       <h5>BASIC BLOCKS</h5>
       <% blocks.each do |block| %>
-        <%= content_tag(:button, block[0])%>
+        <%= content_tag(:button, data: {action: 'click->block#updateType', selected: false}, class: 'py-4 hover:bg-slate-400') do%>
+          <span><%= block[0] %></span>
+        <% end %>
       <% end %>
+      <p class="font-bold p-4" data-show="false">Not found</p>
     </div>
-    <%= button_to '', block_path(block), method: 'delete', data: {block_target: 'delete'} %>
-    <%= form_with(model: new_block = Block.new) do |form| %>
-      <%= form.hidden_field :text, data: {block_target: 'newInput'} %>
-        <%= form.hidden_field :type_of_block %>
-    <% end %>
+    <%= button_to '', block_path(block), method: 'delete', data: {block_target: 'delete'}, class: 'hidden' %>
+    <%= render 'blocks/form', data: {block_target: 'newInput'}%>
 <% end %>

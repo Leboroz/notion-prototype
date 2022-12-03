@@ -14,14 +14,29 @@
  *= require_self
  */
 
-.block:empty::before {
+.block:empty.block:focus::before {
   content: attr(placeholder);
+  color: #999;
+}
+
+[data-selected = "true"] {
+  background-color: #ddd;
+}
+
+.Heading-1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.Heading-1:empty::before {
+  content: attr(placeholder);
+  color: #999;
 }
 
 [data-show = "false"] {
   display: none;
 }
 
-[data-show = "true"] {
+.block:focus [data-show = "true"] {
   display: block;
 }

@@ -1,7 +1,7 @@
 module BlocksHelper
   BLOCKS = {
-    'header' => { placeholder: 'Heading 1', code: '/1' },
-    'paragraph' => { placeholder: 'Type / for blocks @ to link docs or people', code: '/' }
+    'Heading 1' => { placeholder: 'Heading 1' },
+    'paragraph' => { placeholder: 'Type / for blocks @ to link docs or people' }
   }.freeze
 
   def block_object(block_type)
