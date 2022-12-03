@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+.block:empty::before {
+  content: attr(placeholder);
+}
+
+[data-show = "false"] {
+  display: none;
+}
+
+[data-show = "true"] {
+  display: block;
+}

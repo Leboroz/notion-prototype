@@ -1,0 +1,30 @@
+<%= turbo_frame_tag dom_id(block), data: {controller: 'block'} do %>
+  <%= form_with(model: block, class: "contents", ) do |form| %>
+    <div 
+      id="<%= dom_id block %>"
+      class="<%= block.type_of_block %> block"
+      contenteditable
+      placeholder="<%= block_object(block.type_of_block)[:placeholder] %>"
+      data-action="keydown->block#press input->block#changed"
+      data-block-target="content"
+    >
+      <%= block.text %>
+    </div>
+    <%= form.hidden_field :text, data: {block_target: 'input'} %>
+  <% end %>
+    <div 
+      data-show="false"
+      data-block-target="dropdown"
+      class="flex flex-col w-min border p-1"
+    >
+      <h5>BASIC BLOCKS</h5>
+      <% blocks.each do |block| %>
+        <%= content_tag(:button, block[0])%>
+      <% end %>
+    </div>
+    <%= button_to '', block_path(block), method: 'delete', data: {block_target: 'delete'} %>
+    <%= form_with(model: new_block = Block.new) do |form| %>
+      <%= form.hidden_field :text, data: {block_target: 'newInput'} %>
+        <%= form.hidden_field :type_of_block %>
+    <% end %>
+<% end %>
