@@ -1,7 +1,6 @@
 services:
   - type: redis
     name: sidekiq-redis
-    plan: free
     maxmemoryPolicy: noeviction
     ipAllowList: [] # only allow internal connections
 
