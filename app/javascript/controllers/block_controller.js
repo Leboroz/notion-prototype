@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["content", "input", "type", "dropdown", "delete", "newInput"]
+  static targets = ["content", "input", "type", "dropdown", "delete", "newInput", "enter"]
 
   connect() {
     this.contentTarget.focus()
@@ -13,6 +13,14 @@ export default class extends Controller {
       this.inputTarget.form.requestSubmit()
     }
   }, 1000)
+
+  focusIn() {
+    this.enterTarget.setAttribute('data-show', "true")
+  }
+
+  focusOut() {
+    this.enterTarget.setAttribute('data-show', "false")
+  }
 
   press(e) {
     if (e.key === '/') {

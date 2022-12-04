@@ -1,21 +1,10 @@
 class BlocksController < ApplicationController
-  before_action :set_block, only: %i[show edit update destroy]
+  before_action :set_block, only: %i[update destroy]
 
   # GET /blocks or /blocks.json
   def index
     @blocks = Block.all
   end
-
-  # GET /blocks/1 or /blocks/1.json
-  def show; end
-
-  # GET /blocks/new
-  def new
-    @block = Block.new
-  end
-
-  # GET /blocks/1/edit
-  def edit; end
 
   # POST /blocks
   def create
@@ -29,7 +18,7 @@ class BlocksController < ApplicationController
     @block.update(block_params)
   end
 
-  # DELETE /blocks/1 or /blocks/1.json
+  # DELETE /blocks/1
   def destroy
     @block.destroy
   end

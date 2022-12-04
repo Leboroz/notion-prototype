@@ -1,0 +1,1 @@
+enhance-rails-intellisense-in-solargraph/rails.rb

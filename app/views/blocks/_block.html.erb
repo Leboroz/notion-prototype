@@ -1,13 +1,14 @@
 <%= turbo_frame_tag dom_id(block), data: {controller: 'block'}, class: 'relative' do %>
-  <%= form_with(model: block, class: "contents" ) do |form| %>
+  <%= form_with(model: block, class: "contents relative" ) do |form| %>
     <div 
       id="<%= dom_id block %>"
       class="<%= block.type_of_block.sub(/ /, '-') %> block w-full p-4 outline-none focus:bg-gray-100"
       contenteditable
       placeholder="<%= block_object(block.type_of_block)[:placeholder] %>"
-      data-action="keydown->block#press input->block#changed load->block#loadBlock keyup->block#input"
+      data-action="keydown->block#press input->block#changed keyup->block#input focusin->block#focusIn focusout->block#focusOut"
       data-block-target="content"
     ><%= block.text if block.text.length > 0 %></div>
+    <span class="absolute top-1/2 -translate-y-1/2 right-10 z-10" data-show="false" data-block-target="enter">&#9166;</span>
     <%= form.hidden_field :text, data: {block_target: 'input'} %>
     <%= form.hidden_field :type_of_block, data: {block_target: 'type'} %>
   <% end %>
